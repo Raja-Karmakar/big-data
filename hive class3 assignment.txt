@@ -22,6 +22,11 @@ e. In which country sales was maximum and in which country sales was minimum
 f. Calculate quartelry sales for each city
 g. Find a month for each year in which maximum number of quantities were sold
 -----------------------------------------------------------------------------------------------------------------------------------------
+// 2.  hdfs dfs -copyFromLocal /home/cloudera/student_hive_temp/sales_order_data.csv /tmp/hive_assignments
+
+	output-
+-rw-r--r--   1 cloudera supergroup     360233 2022-09-14 20:09 /tmp/hive_assignments/sales_order_data.csv
+
 // 3. creating of a csv file storing table
 > create table sales_order_csv(
 ORDERNUMBER int,
