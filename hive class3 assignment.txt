@@ -148,13 +148,13 @@ S10_4698        33989.19091796875       4       2003
 product sales_quarter   qid     yid
 S24_1628        845.25  2       2004
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
-//e.select country as country, sum(sales) as sales from sales_order_orc group by country order by sales desc;
+//e.select country as country, sum(sales) as sales from sales_order_orc group by country order by sales desc limit 1;
 
 	OUTPUT-
 country sales
 USA     3627982.825744629
 
-select country as country, sum(sales) as sales from sales_order_orc group by country order by sales;
+select country as country, sum(sales) as sales from sales_order_orc group by country order by sales limit 1;
 
 	OUTOUT-
 Ireland 57756.43029785156
