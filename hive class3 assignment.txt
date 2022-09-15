@@ -150,26 +150,13 @@ S24_1628        845.25  2       2004
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //e.select country as country, sum(sales) as sales from sales_order_orc group by country order by sales desc;
 
-	OUTPUT
+	OUTPUT-
 country sales
 USA     3627982.825744629
-Spain   1215686.9223632812
-France  1110916.5217895508
-Australia       630623.0987548828
-UK      478880.45892333984
-Italy   374674.3109741211
-Finland 329581.91033935547
-Norway  307463.69970703125
-Singapore       288488.4102783203
-Denmark 245637.15063476562
-Canada  224078.55993652344
-Germany 220472.0897216797
-Sweden  210014.21020507812
-Austria 202062.53033447266
-Japan   188167.81060791016
-Switzerland     117713.55859375
-Belgium 108412.61962890625
-Philippines     94015.73046875
+
+select country as country, sum(sales) as sales from sales_order_orc group by country order by sales;
+
+	OUTOUT-
 Ireland 57756.43029785156
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 //f.  select country as country,city as city, qtr_id as qid, sum(sales) as qtr_sales, year_id as year from sales_order_orc group by city, qtr_id, country,year_id order by country,city desc;
