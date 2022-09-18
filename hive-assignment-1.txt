@@ -200,37 +200,19 @@ Canada  Montreal        2       24564.530029296875      2004
 Canada  Montreal        4       15947.290405273438      2003
 Canada  Montreal        2       33692.97009277344       2005
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-//g. select year_id as year,month_id as month, max(sales) as month_sales from sales_order_orc group by month_id, year_id order by month_sales desc;
+//g. select distinct(year_id) as year from sales_order_orc order by year desc;
+	year
+	2005
+	2004
+	2003
+select year_id as year, month as month, max(sales) as most_sale from sales_order_orc 
+where year_id = 2005 group by year_id, month order by most_sale desc limit 1;
+	
+	year    month   most_sale
+	2005    4       14082.8
 
-	OUTPUT
 
-year    month   month_sales
-2005    4       14082.8
-2004    11      12536.5
-2005    5       12001.0
-2004    10      11623.7
-2003    6       11279.2
-2003    9       10993.5
-2004    5       10606.2
-2005    3       10066.6
-2005    2       10039.6
-2004    2       9774.03
-2004    12      9720.0
-2004    8       9631.0
-2004    1       9534.5
-2003    8       9470.94
-2003    4       9264.86
-2005    1       9240.44
-2004    7       9169.0
-2003    12      9064.89
-2003    11      8892.9
-2003    10      8754.69
-2003    2       8690.36
-2004    9       8411.56
-2004    3       8378.58
-2004    6       8336.94
-2003    7       8331.61
-2003    5       8284.0
-2003    3       8257.0
-2004    4       7597.3
-2003    1       5958.5
+select year_id as year, month as month, max(sales) as most_sale from sales_order_orc 
+where year_id = 2004 group by year_id, month order by most_sale desc limit 1;
+	year    month   most_sale
+	2004    11      12536.5
