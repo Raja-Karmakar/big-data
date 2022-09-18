@@ -216,3 +216,9 @@ select year_id as year, month as month, max(sales) as most_sale from sales_order
 where year_id = 2004 group by year_id, month order by most_sale desc limit 1;
 	year    month   most_sale
 	2004    11      12536.5
+	
+select year_id as year, month as month, max(sales) as most_sale from sales_order_orc 
+where year_id = 2003 group by year_id, month order by most_sale desc limit 1;
+
+	year    month   most_sale
+	2003    6       11279.2
