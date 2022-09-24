@@ -1,0 +1,839 @@
+hive-project-1
+-----------------------------------------------------------------------------------------
+1.
+create table agent_performance(
+sl_no int,
+date string,
+agent_name string,
+total_chat int,
+avg_resp_time timestamp,
+avg_resl_time timestamp,
+avg_rating float,
+total_fb int
+)
+row format delimited
+fields terminated by ',';
+
+create table agent_performance(
+sl_no int,
+date string,
+agent_name string,
+total_chat int,
+avg_resp_time timestamp,
+avg_resl_time timestamp,
+avg_rating float,
+total_fb int
+)
+row format delimited
+fields terminated by ','
+stored as orc;
+
+create table agent_login(
+sl_no int,
+Agent string,
+Date string,
+login_time string,
+logout_time string,
+duration string
+)
+row format delimited
+fields terminated by ',';
+
+create table agent_login(
+sl_no int,
+Agent string,
+Date string,
+login_time string,
+logout_time string,
+duration string
+)
+row format delimited
+fields terminated by ','
+stored as orc;
+
+
+
+2.
+load data local inpath 'file:///home/cloudera/student_hive_temp/AgentLogingReport.csv'
+into table agent_login_csv;
+
+load data local inpath 'file:///home/cloudera/student_hive_temp/AgentPerformance.csv'
+into table agent_performance_csv;
+
+insert overwrite table agent_performance select * from agent_performance_csv;
+
+insert overwrite table agent_login select * from agent_login_csv;
+
+3.
+select distinct(agent_name) from agent_performance ap ;
+
+ap.agent_name
+Abhishek
+Aditya
+Aditya Shinde
+Aditya_iot
+Amersh
+Ameya Jain
+Anirudh
+Ankit Sharma
+Ankitjha
+Anurag Tiwari
+Aravind
+Ashad Nasim
+Ashish
+Ayushi Mishra
+Bharath
+Boktiar Ahmed Bappy
+Chaitra K Hiremath
+Deepranjan Gupta
+Dibyanshu
+Harikrishnan Shaji
+Hitesh Choudhary
+Hrisikesh Neogi
+Hyder Abbas
+Ineuron Intelligence
+Ishawant Kumar
+Jawala Prakash
+Jayant Kumar
+Jaydeep Dixit
+Khushboo Priya
+Madhulika G
+Mahak
+Mahesh Sarade
+Maitry
+Maneesh
+Manjunatha A
+Mithun S
+Mukesh
+Mukesh Rao
+Muskan Garg
+Nandani Gupta
+Nishtha Jain
+Nitin M
+Prabir Kumar Satapathy
+Prateek _iot
+Prerna Singh
+Rishav Dash
+Rohan
+Saif Khan
+Saikumarreddy N
+Samprit
+Sandipan Saha
+Sanjeev Kumar
+Sanjeevan
+Saurabh Shukla
+Shiva Srivastava
+Shivan K
+Shivan_S
+Shivananda Sonwane
+Shubham Sharma
+Sowmiya Sivakumar
+Spuri
+Sudhanshu Kumar
+Suraj S Bilgi
+Swati
+Tarun
+Uday Mishra
+Vasanth P
+Vivek
+Wasim
+Zeeshan
+Abhishek
+Aditya
+Aditya Shinde
+Aditya_iot
+Amersh
+Ameya Jain
+Anirudh
+Ankit Sharma
+Ankitjha
+Anurag Tiwari
+Aravind
+Ashad Nasim
+Ashish
+Ayushi Mishra
+Bharath
+Boktiar Ahmed Bappy
+Chaitra K Hiremath
+Deepranjan Gupta
+Dibyanshu
+Harikrishnan Shaji
+Hitesh Choudhary
+Hrisikesh Neogi
+Hyder Abbas
+Ineuron Intelligence
+Ishawant Kumar
+Jawala Prakash
+Jayant Kumar
+Jaydeep Dixit
+Khushboo Priya
+Madhulika G
+Mahak
+Mahesh Sarade
+Maitry
+Maneesh
+Manjunatha A
+Mithun S
+Mukesh
+Mukesh Rao
+Muskan Garg
+Nandani Gupta
+Nishtha Jain
+Nitin M
+Prabir Kumar Satapathy
+Prateek _iot
+Prerna Singh
+Rishav Dash
+Rohan
+Saif Khan
+Saikumarreddy N
+Samprit
+Sandipan Saha
+Sanjeev Kumar
+Sanjeevan
+Saurabh Shukla
+Shiva Srivastava
+Shivan K
+Shivan_S
+Shivananda Sonwane
+Shubham Sharma
+Sowmiya Sivakumar
+Spuri
+Sudhanshu Kumar
+Suraj S Bilgi
+Swati
+Tarun
+Uday Mishra
+Vasanth P
+Vivek
+Wasim
+Zeeshan
+
+
+4.
+select agent_name as name, avg(avg_rating) as rating 
+from (select distinct(agent_name), avg_rating from agent_performance) as an
+group by agent_name order by rating desc;
+
+name    rating
+Bharath         4.431764686808867
+Aravind         4.340714318411691
+Shubham Sharma  4.335789504804109
+Jaydeep Dixit   4.301904803230649
+Hrisikesh Neogi 4.247368423562301
+Shivananda Sonwane      4.245652167693429
+Saikumarreddy N 4.236923107734094
+Manjunatha A    4.235000014305115
+Wasim   4.212500035762787
+Sanjeev Kumar   4.200526337874563
+Khushboo Priya  4.18681817704981
+Maitry  4.162105284239116
+Aditya Shinde   4.15461540222168
+Prabir Kumar Satapathy  4.153999996185303
+Ameya Jain      4.139285734721592
+Prerna Singh    4.110555529594421
+Ayushi Mishra   4.093499970436096
+Madhulika G     4.084210496199758
+Deepranjan Gupta        4.0731579379031535
+Rishav Dash     4.071500015258789
+Prateek _iot    4.0683333079020185
+Ishawant Kumar  4.0364705955280975
+Jawala Prakash  4.01869567580845
+Zeeshan         4.018124967813492
+Shivan K        4.013333347108629
+Swati   3.9958823849173153
+Nandani Gupta   3.9868181835521352
+Boktiar Ahmed Bappy     3.9829999685287474
+Harikrishnan Shaji      3.959499979019165
+Nishtha Jain    3.823750004172325
+Aditya_iot      3.810000002384186
+Sowmiya Sivakumar       3.7799999952316283
+Mahesh Sarade   3.7647058963775635
+Mithun S        3.6650000280804105
+Muskan Garg     3.56166664759318
+Chaitra K Hiremath      3.4899999698003135
+Jayant Kumar    3.3824999928474426
+Shiva Srivastava        3.306666692097982
+Sandipan Saha   3.2174999713897705
+Suraj S Bilgi   3.1200000445048013
+Mukesh  3.0966666539510093
+Anirudh         3.0583333174387612
+Saurabh Shukla  2.9175000190734863
+Ankitjha        2.6666666666666665
+Vivek   2.503333330154419
+Sudhanshu Kumar 2.5
+Shivan_S        2.125
+Mukesh Rao      1.917499989271164
+Anurag Tiwari   1.8333333333333333
+Ashad Nasim     1.6666666666666667
+Maneesh         1.6666666666666667
+Mahak   1.5
+Tarun   0.75
+Rohan   0.0
+Saif Khan       0.0
+Samprit         0.0
+Nitin M 0.0
+Sanjeevan       0.0
+Spuri   0.0
+Ineuron Intelligence    0.0
+Hyder Abbas     0.0
+Hitesh Choudhary        0.0
+Dibyanshu       0.0
+Ashish  0.0
+Uday Mishra     0.0
+Ankit Sharma    0.0
+Vasanth P       0.0
+Amersh  0.0
+Aditya  0.0
+Abhishek        0.0
+
+
+5.
+select agent_name as name, count(date) as total_days from 
+(select distinct(agent_name), date from agent_performance) as an 
+group by agent_name order by total_days desc;
+
+name    total_days
+Zeeshan         30
+Wasim   30
+Vivek   30
+Vasanth P       30
+Uday Mishra     30
+Tarun   30
+Swati   30
+Suraj S Bilgi   30
+Sudhanshu Kumar 30
+Spuri   30
+Sowmiya Sivakumar       30
+Shubham Sharma  30
+Shivananda Sonwane      30
+Shivan_S        30
+Shivan K        30
+Shiva Srivastava        30
+Saurabh Shukla  30
+Sanjeevan       30
+Sanjeev Kumar   30
+Sandipan Saha   30
+Samprit         30
+Saikumarreddy N 30
+Saif Khan       30
+Rohan   30
+Rishav Dash     30
+Prerna Singh    30
+Prateek _iot    30
+Prabir Kumar Satapathy  30
+Nitin M 30
+Nishtha Jain    30
+Nandani Gupta   30
+Muskan Garg     30
+Mukesh Rao      30
+Mukesh  30
+Mithun S        30
+Manjunatha A    30
+Maneesh         30
+Maitry  30
+Mahesh Sarade   30
+Mahak   30
+Madhulika G     30
+Khushboo Priya  30
+Jaydeep Dixit   30
+Jayant Kumar    30
+Jawala Prakash  30
+Ishawant Kumar  30
+Ineuron Intelligence    30
+Hyder Abbas     30
+Hrisikesh Neogi 30
+Hitesh Choudhary        30
+Harikrishnan Shaji      30
+Dibyanshu       30
+Deepranjan Gupta        30
+Chaitra K Hiremath      30
+Boktiar Ahmed Bappy     30
+Bharath         30
+Ayushi Mishra   30
+Ashish  30
+Ashad Nasim     30
+Aravind         30
+Anurag Tiwari   30
+Ankitjha        30
+Ankit Sharma    30
+Anirudh         30
+Ameya Jain      30
+Amersh  30
+Aditya_iot      30
+Aditya Shinde   30
+Aditya  30
+Abhishek        30
+
+
+
+6.
+select agent_name,sum(total_chat) as total_query
+from (select distinct(agent_name),total_chat from agent_performance)as a
+group by agent_name;
+
+
+agent_name      total_query
+Abhishek        0
+Aditya  0
+Aditya Shinde   259
+Aditya_iot      166
+Amersh  0
+Ameya Jain      284
+Anirudh         81
+Ankit Sharma    0
+Ankitjha        4
+Anurag Tiwari   4
+Aravind         336
+Ashad Nasim     18
+Ashish  0
+Ayushi Mishra   296
+Bharath         224
+Boktiar Ahmed Bappy     391
+Chaitra K Hiremath      53
+Deepranjan Gupta        432
+Dibyanshu       1
+Harikrishnan Shaji      322
+Hitesh Choudhary        1
+Hrisikesh Neogi 434
+Hyder Abbas     0
+Ineuron Intelligence    0
+Ishawant Kumar  260
+Jawala Prakash  311
+Jayant Kumar    119
+Jaydeep Dixit   324
+Khushboo Priya  305
+Madhulika G     337
+Mahak   7
+Mahesh Sarade   341
+Maitry  432
+Maneesh         3
+Manjunatha A    268
+Mithun S        434
+Mukesh  19
+Mukesh Rao      4
+Muskan Garg     56
+Nandani Gupta   411
+Nishtha Jain    252
+Nitin M 0
+Prabir Kumar Satapathy  250
+Prateek _iot    119
+Prerna Singh    311
+Rishav Dash     323
+Rohan   0
+Saif Khan       0
+Saikumarreddy N 331
+Samprit         1
+Sandipan Saha   30
+Sanjeev Kumar   387
+Sanjeevan       0
+Saurabh Shukla  16
+Shiva Srivastava        47
+Shivan K        256
+Shivan_S        7
+Shivananda Sonwane      303
+Shubham Sharma  416
+Sowmiya Sivakumar       183
+Spuri   0
+Sudhanshu Kumar 1
+Suraj S Bilgi   28
+Swati   418
+Tarun   22
+Uday Mishra     0
+Vasanth P       0
+Vivek   44
+Wasim   342
+Zeeshan         507
+
+7.
+select agent_name,sum(total_fb) as total_fb
+from (select distinct(agent_name),total_fb from agent_performance)as a 
+group by agent_name;
+
+
+agent_name      total_fb
+Abhishek        0
+Aditya  0
+Aditya Shinde   111
+Aditya_iot      88
+Amersh  0
+Ameya Jain      182
+Anirudh         24
+Ankit Sharma    0
+Ankitjha        3
+Anurag Tiwari   3
+Aravind         201
+Ashad Nasim     9
+Ashish  0
+Ayushi Mishra   226
+Bharath         166
+Boktiar Ahmed Bappy     278
+Chaitra K Hiremath      21
+Deepranjan Gupta        212
+Dibyanshu       0
+Harikrishnan Shaji      205
+Hitesh Choudhary        0
+Hrisikesh Neogi 220
+Hyder Abbas     0
+Ineuron Intelligence    0
+Ishawant Kumar  144
+Jawala Prakash  151
+Jayant Kumar    43
+Jaydeep Dixit   166
+Khushboo Priya  209
+Madhulika G     130
+Mahak   5
+Mahesh Sarade   172
+Maitry  292
+Maneesh         3
+Manjunatha A    137
+Mithun S        348
+Mukesh  17
+Mukesh Rao      4
+Muskan Garg     37
+Nandani Gupta   198
+Nishtha Jain    178
+Nitin M 0
+Prabir Kumar Satapathy  183
+Prateek _iot    67
+Prerna Singh    148
+Rishav Dash     163
+Rohan   0
+Saif Khan       0
+Saikumarreddy N 249
+Samprit         0
+Sandipan Saha   18
+Sanjeev Kumar   198
+Sanjeevan       0
+Saurabh Shukla  6
+Shiva Srivastava        34
+Shivan K        188
+Shivan_S        4
+Shivananda Sonwane      128
+Shubham Sharma  169
+Sowmiya Sivakumar       97
+Spuri   0
+Sudhanshu Kumar 1
+Suraj S Bilgi   15
+Swati   260
+Tarun   6
+Uday Mishra     0
+Vasanth P       0
+Vivek   17
+Wasim   171
+Zeeshan         221
+
+
+8.
+select agent_name as name, avg_rate as rating_in_range 
+from (
+select distinct(agent_name), avg_rate 
+from (
+select agent_name, avg(avg_rating) as avg_rate 
+from agent_performance group by agent_name
+) as a 
+where avg_rate between 3.5 and 4
+) as ap group by agent_name, avg_rate;
+
+name    rating_in_range
+Boktiar Ahmed Bappy     3.567999982833862
+Ishawant Kumar  3.543333347638448
+Khushboo Priya  3.703666663169861
+Manjunatha A    3.5946666876475017
+
+
+9.
+select agent_name as name, avg_rate as rating_in_range
+from (
+select distinct(agent_name), avg_rate
+from (
+select agent_name, avg(avg_rating) as avg_rate
+from agent_performance group by agent_name
+) as a
+where avg_rate < 3.5
+) as ap group by agent_name, avg_rate;
+
+
+name    rating_in_range
+Abhishek        0.0
+Aditya  0.0
+Aditya Shinde   1.8003333409627278
+Aditya_iot      2.3453333377838135
+Amersh  0.0
+Ameya Jain      2.21966667175293
+Anirudh         0.6449999968210857
+Ankit Sharma    0.0
+Ankitjha        0.26666666666666666
+Anurag Tiwari   0.18333333333333332
+Aravind         2.1813333511352537
+Ashad Nasim     0.16666666666666666
+Ashish  0.0
+Ayushi Mishra   3.481999969482422
+Bharath         2.9836666584014893
+Chaitra K Hiremath      0.8646666606267294
+Deepranjan Gupta        2.886666695276896
+Dibyanshu       0.0
+Harikrishnan Shaji      2.6396666526794434
+Hitesh Choudhary        0.0
+Hrisikesh Neogi 3.1363333304723104
+Hyder Abbas     0.0
+Ineuron Intelligence    0.0
+Jawala Prakash  3.472000018755595
+Jayant Kumar    1.068666664759318
+Jaydeep Dixit   3.1670000314712525
+Madhulika G     3.4986666520436605
+Mahak   0.1
+Mahesh Sarade   2.4003333330154417
+Maitry  2.9270000139872234
+Maneesh         0.16666666666666666
+Mithun S        2.359000023206075
+Mukesh  0.3096666653951009
+Mukesh Rao      0.25566666523615517
+Muskan Garg     0.712333329518636
+Nandani Gupta   2.9236666679382326
+Nishtha Jain    3.282333334287008
+Nitin M 0.0
+Prabir Kumar Satapathy  2.5103333314259846
+Prateek _iot    2.4383333206176756
+Prerna Singh    3.2326666434605915
+Rishav Dash     1.4268333355585734
+Rohan   0.0
+Saif Khan       0.0
+Saikumarreddy N 1.9803333441416422
+Samprit         0.0
+Sandipan Saha   0.4289999961853027
+Sanjeev Kumar   3.3830000241597493
+Sanjeevan       0.0
+Saurabh Shukla  0.5556666692097981
+Shiva Srivastava        0.9446666717529297
+Shivan K        2.841333341598511
+Shivan_S        0.14166666666666666
+Shubham Sharma  3.2253333568572997
+Sowmiya Sivakumar       1.2599999984105428
+Spuri   0.0
+Sudhanshu Kumar 0.3333333333333333
+Suraj S Bilgi   0.31200000445048015
+Swati   2.4236666917800904
+Tarun   0.05
+Uday Mishra     0.0
+Vasanth P       0.0
+Vivek   0.5006666660308838
+Wasim   2.400000015894572
+Zeeshan         2.286999988555908
+
+10.
+select agent_name as name, avg_rate as rating_in_range
+from (
+select distinct(agent_name), avg_rate
+from (
+select agent_name, avg(avg_rating) as avg_rate
+from agent_performance group by agent_name
+) as a
+where avg_rate > 4.5
+) as ap group by agent_name, avg_rate;
+
+name    rating_in_range
+
+11.
+select agent_name as name, count(total_fb) as fb 
+from(
+select distinct(agent_name) as agent_name, total_fb, avg_rating from agent_performance
+where avg_rating > 4.5
+) as t group by agent_name;
+
+
+name    fb
+Aditya Shinde   7
+Aditya_iot      5
+Ameya Jain      8
+Anirudh         1
+Ankitjha        1
+Aravind         11
+Ayushi Mishra   7
+Bharath         17
+Boktiar Ahmed Bappy     7
+Chaitra K Hiremath      2
+Deepranjan Gupta        7
+Harikrishnan Shaji      7
+Hrisikesh Neogi 10
+Ishawant Kumar  11
+Jawala Prakash  5
+Jayant Kumar    2
+Jaydeep Dixit   12
+Khushboo Priya  11
+Madhulika G     7
+Mahesh Sarade   4
+Maitry  7
+Manjunatha A    11
+Mithun S        5
+Mukesh  2
+Mukesh Rao      1
+Muskan Garg     2
+Nandani Gupta   7
+Nishtha Jain    4
+Prabir Kumar Satapathy  6
+Prateek _iot    9
+Prerna Singh    7
+Rishav Dash     3
+Saikumarreddy N 8
+Sandipan Saha   1
+Sanjeev Kumar   10
+Saurabh Shukla  2
+Shiva Srivastava        1
+Shivan K        9
+Shivananda Sonwane      14
+Shubham Sharma  10
+Sowmiya Sivakumar       1
+Sudhanshu Kumar 1
+Suraj S Bilgi   1
+Swati   7
+Vivek   1
+Wasim   10
+Zeeshan         3
+
+
+12.
+
+13.
+
+14.
+select agent_name as name, sum(total_fb) as chat_fb 
+from (
+select distinct(agent_name), total_fb from agent_performance where total_fb >0
+) as a group by agent_name;
+
+
+name    chat_fb
+Aditya Shinde   111
+Aditya_iot      88
+Ameya Jain      182
+Anirudh         24
+Ankitjha        3
+Anurag Tiwari   3
+Aravind         201
+Ashad Nasim     9
+Ayushi Mishra   226
+Bharath         166
+Boktiar Ahmed Bappy     278
+Chaitra K Hiremath      21
+Deepranjan Gupta        212
+Harikrishnan Shaji      205
+Hrisikesh Neogi 220
+Ishawant Kumar  144
+Jawala Prakash  151
+Jayant Kumar    43
+Jaydeep Dixit   166
+Khushboo Priya  209
+Madhulika G     130
+Mahak   5
+Mahesh Sarade   172
+Maitry  292
+Maneesh         3
+Manjunatha A    137
+Mithun S        348
+Mukesh  17
+Mukesh Rao      4
+Muskan Garg     37
+Nandani Gupta   198
+Nishtha Jain    178
+Prabir Kumar Satapathy  183
+Prateek _iot    67
+Prerna Singh    148
+Rishav Dash     163
+Saikumarreddy N 249
+Sandipan Saha   18
+Sanjeev Kumar   198
+Saurabh Shukla  6
+Shiva Srivastava        34
+Shivan K        188
+Shivan_S        4
+Shivananda Sonwane      128
+Shubham Sharma  169
+Sowmiya Sivakumar       97
+Sudhanshu Kumar 1
+Suraj S Bilgi   15
+Swati   260
+Tarun   6
+Vivek   17
+Wasim   171
+Zeeshan         221
+
+15.
+
+16.
+INSERT OVERWRITE LOCAL DIRECTORY '/home/cloudera/student_hive_temp/inner'
+ROW FORMAT DELIMITED FIELDS TERMINATED BY ','
+SELECT 
+al.agent_name,al.date,al.login_time,al.logout_time,al.duration,
+ap.total_chat, ap.avg_resp_time, ap.avg_resl_time, ap.avg_rating, ap.total_fb
+FROM agent_login al INNER JOIN agent_performance ap
+ON (al.agent_name = ap.agent_name);
+
+
+INSERT OVERWRITE LOCAL DIRECTORY '/home/cloudera/student_hive_temp/left'
+ROW FORMAT DELIMITED FIELDS TERMINATED BY ','
+SELECT 
+al.agent_name,al.date,al.login_time,al.logout_time,al.duration,
+ap.total_chat, ap.avg_resp_time, ap.avg_resl_time, ap.avg_rating, ap.total_fb
+FROM agent_login al LEFT OUTER JOIN agent_performance ap
+ON (al.agent_name = ap.agent_name);
+
+
+INSERT OVERWRITE LOCAL DIRECTORY '/home/cloudera/student_hive_temp/right'
+ROW FORMAT DELIMITED FIELDS TERMINATED BY ','
+SELECT 
+al.agent_name,al.date,al.login_time,al.logout_time,al.duration,
+ap.total_chat, ap.avg_resp_time, ap.avg_resl_time, ap.avg_rating, ap.total_fb
+FROM agent_login al RIGHT OUTER JOIN agent_performance ap
+ON (al.agent_name = ap.agent_name);
+
+
+INSERT OVERWRITE LOCAL DIRECTORY '/home/cloudera/student_hive_temp/full'
+ROW FORMAT DELIMITED FIELDS TERMINATED BY ','
+SELECT 
+al.agent_name,al.date,al.login_time,al.logout_time,al.duration,
+ap.total_chat, ap.avg_resp_time, ap.avg_resl_time, ap.avg_rating, ap.total_fb
+FROM agent_login al FULL OUTER JOIN agent_performance ap
+ON (al.agent_name = ap.agent_name);
+
+
+17.
+set.hive.exec.dynamic.partition.mode=nonrestrict;
+
+create table partition_by_agent(
+date string,
+login_time string,
+duration string,
+total_chat int,
+avg_resp_time string,
+avg_resl_time string,
+avg_rating string,
+total_fb int
+)partitioned by (agent_name string); 
+
+# load data in dynamic partition table
+
+insert overwrite table partition_by_agent partition(agent_name) 
+select 
+al.date, al.login_time, al.duration,
+ap.total_chat, ap.avg_resp_time, ap.avg_resl_time, ap.avg_rating, ap.total_fb, al.agent_name 
+from agent_login al,agent_performance ap;
+
+
+# bucketing over partitioned tables
+
+set hive.enforce.bucketing=true;
+
+create table agent_bucketing                                                                                                                
+(
+agent_name string,
+total_fb int,
+date string                                                                                                                    
+)                                                                                                                                       
+clustered by (date)                                                                                                                       
+sorted by (date)                                                                                                                          
+into 7 buckets;
+    
+insert overwrite table agent_bucketing
+select agent_name, total_fb, date from partition_by_agent;
+
